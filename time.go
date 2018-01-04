@@ -1,6 +1,6 @@
-//Package go_prettytime provides utility functions for calculating and presenting
+//Package prettytime provides utility functions for calculating and presenting
 //in human readable and understandable form.
-package go_prettytime
+package prettytime
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ import (
 
 // Errors This error shouldn't occurs at any const. If occurs the timeLapses condition need to be updated
 var (
-	errFormatNotFound = errors.New("time formatter options not found")
+	errFormatNotFound = errors.New("time lapse options not found")
 )
 
 // Unix epoch (or Unix time or POSIX time or Unix timestamp)  1 year (365.24 days)
@@ -29,14 +29,15 @@ func handler(timeIntervalThreshold float64, timePeriod, message string) func(flo
 	}
 }
 
-type formatter struct {
-	// Default time stamp to handle the condition
+// timeLapse condition struct
+type timeLapse struct {
+	// Time stamp threshold to handle the time lap condition
 	Threshold float64
 	// Handler function which determines the time lapse based on the condition
 	Handler func(float64) string
 }
 
-var timeLapses = []formatter{
+var timeLapses = []timeLapse{
 	{Threshold: -31535999, Handler: handler(-31536000, "year", "from now")},
 	{Threshold: -2591999, Handler: handler(-2592000, "month", "from now")},
 	{Threshold: -604799, Handler: handler(-604800, "week", "from now")},
@@ -78,7 +79,7 @@ func Format(t time.Time) (timeSince string) {
 			return formatter.Handler(timeElapsed)
 		}
 	}
-	// time formatter options not found
-	log.Fatalf(t.String()+":", errFormatNotFound.Error())
+	// time timeLapse options not found
+	log.Fatal(t, ":", errFormatNotFound.Error())
 	return ""
 }

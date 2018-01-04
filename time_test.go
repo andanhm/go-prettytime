@@ -1,13 +1,13 @@
-package go_prettytime
+package prettytime
 
 import (
 	"testing"
 	"time"
 )
 
-var now = time.Now()
-
 func TestTimeAgo(t *testing.T) {
+	var now = time.Now()
+
 	t.Log(now.Format(time.RFC3339), "->", Format(now))
 
 	Time := now.AddDate(-2, 0, 0)
@@ -20,5 +20,4 @@ func TestTimeAgo(t *testing.T) {
 
 	Time = now.AddDate(50, 0, 0)
 	t.Log(Time.Format(time.RFC3339), "->", Format(Time))
-
 }
