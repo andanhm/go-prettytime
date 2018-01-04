@@ -14,14 +14,17 @@
 dep is a prototype dependency management tool for Go. It requires Go 1.8 or newer to compile.
 
 ```bash
-    dep ensure -add github.com/andanhm/go-prettydate
+    dep init
+    dep ensure -add github.com/andanhm/go-prettytime
+    #    Have any issue in vendoring try following command once 
+    dep ensure -vendor-only
 ```
 
 #### [gvt]
 gvt is the go vendoring tool for the GO15VENDOREXPERIMENT, based on gb-vendor
 
 ```bash
-    gvt fetch github.com/andanhm/go-prettydate
+    gvt fetch github.com/andanhm/go-prettytime
 ```
 
 
