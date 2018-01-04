@@ -1,6 +1,6 @@
 ## GoLang Pretty Time
 
-> Format GoLang date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
+> [go-prettytime] Format GoLang date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
 
 ### Install
 
@@ -114,3 +114,4 @@ Feel free to fork and add features, fix bugs and your pull request is more than 
 
 [dep]: <https://github.com/golang/dep>
 [gvt]: <https://github.com/FiloSottile/gvt>
+[go-prettytime]: <https://godoc.org/github.com/andanhm/go-prettytime>
