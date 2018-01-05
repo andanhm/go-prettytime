@@ -106,7 +106,7 @@ func main() {
 2018-01-04T17:04:29+05:30 -> 2 minute ago
 ```
 
-> Inspired by the `John Resig` Pretty Date plugin for jQuery (http://ejohn.org/blog/javascript-pretty-date/)
+> Inspired by the `John Resig` Pretty Date plug-in for jQuery (http://ejohn.org/blog/javascript-pretty-date/)
 
 ### Contributions
 

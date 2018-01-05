@@ -80,6 +80,6 @@ func Format(t time.Time) (timeSince string) {
 		}
 	}
 	// time timeLapse options not found
-	log.Fatal(t, ":", errFormatNotFound.Error())
+	log.Fatal(t, " : ", errFormatNotFound.Error())
 	return ""
 }
