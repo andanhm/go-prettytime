@@ -1,0 +1,10 @@
+language: go
+
+go:
+  - "1.1.x"
+  - "1.5.x"
+  - "1.10.x"
+  - master
+
+script: 
+  - go test -cpu=1,2 -v  
