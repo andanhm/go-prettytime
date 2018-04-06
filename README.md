@@ -1,11 +1,15 @@
 ## GoLang Pretty Time
 
-> [go-prettytime] Format GoLang date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
+[![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/andanhm/go-prettytime)
+[![Build Status](https://travis-ci.org/andanhm/go-prettytime.svg?branch=master)](https://travis-ci.org/andanhm/go-prettytime)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://godoc.org/github.com/andanhm/go-prettytime)
+
+> Format GoLang date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
 
 ### Install
 
 ```bash
-    go get github.com/andanhm/go-prettydate
+go get github.com/andanhm/go-prettydate
 ```
 
 ### Using dependencies
@@ -14,17 +18,17 @@
 dep is a prototype dependency management tool for Go. It requires Go 1.8 or newer to compile.
 
 ```bash
-    dep init
-    dep ensure -add github.com/andanhm/go-prettytime
-    #    Have any issue in vendoring try following command once 
-    dep ensure -vendor-only
+dep init
+dep ensure -add github.com/andanhm/go-prettytime
+#    Have any issue in vendoring try following command once 
+dep ensure -vendor-only
 ```
 
 #### [gvt]
 gvt is the go vendoring tool for the GO15VENDOREXPERIMENT, based on gb-vendor
 
 ```bash
-    gvt fetch github.com/andanhm/go-prettytime
+gvt fetch github.com/andanhm/go-prettytime
 ```
 
 
@@ -106,7 +110,7 @@ func main() {
 2018-01-04T17:04:29+05:30 -> 2 minute ago
 ```
 
-> Inspired by the `John Resig` Pretty Date plug-in for jQuery (http://ejohn.org/blog/javascript-pretty-date/)
+> Inspired by the `John Resig` Pretty Date plug-in for JQuery (http://ejohn.org/blog/javascript-pretty-date/)
 
 ### Contributions
 
