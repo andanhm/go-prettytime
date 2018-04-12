@@ -9,6 +9,9 @@ import (
 	"time"
 )
 
+// Version library version
+const Version = "v1.0.0"
+
 // Errors This error shouldn't occurs at any const. If occurs the timeLapses condition need to be updated
 var (
 	errFormatNotFound = errors.New("time lapse options not found")
