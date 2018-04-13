@@ -1,11 +1,11 @@
-## GoLang Pretty Time
+## Go Pretty Time
 
 [![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/github.com/andanhm/go-prettytime)
 [![Build Status](https://travis-ci.org/andanhm/go-prettytime.svg?branch=master)](https://travis-ci.org/andanhm/go-prettytime)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://godoc.org/github.com/andanhm/go-prettytime)
-[![codecov](https://codecov.io/gh/icza/minquery/branch/master/graph/badge.svg)](https://codecov.io/gh/andanhm/go-prettytime)
+[![GoDoc](https://camo.githubusercontent.com/3de3bba30c9355c0d919804e7b31e6b504af74e2/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f6e617468616e792f6c6f6f7065723f7374617475732e737667)](https://godoc.org/github.com/andanhm/go-prettytime)
+[![CodeCov](https://codecov.io/gh/icza/minquery/branch/master/graph/badge.svg)](https://codecov.io/gh/andanhm/go-prettytime)
 
-> Format GoLang date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
+> Format Go date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
 
 ### Install
 
@@ -15,7 +15,7 @@ go get github.com/andanhm/go-prettydate
 
 ### Using dependencies
 
-#### [dep] GoLang Official Go dependency management tool
+#### [dep] Go Official dependency management tool
 dep is a prototype dependency management tool for Go. It requires Go 1.8 or newer to compile.
 
 ```bash
@@ -42,73 +42,43 @@ import (
 	"fmt"
 	"time"
 
-	prettyTime "go-prettytime"
+	prettyTime "github.com/andanhm/go-prettytime"
 )
 
-var now = time.Now()
-var timeFormat = time.RFC3339
-var interval  = time.Duration(10)
-
 func main() {
-	fmt.Println(now.Format(timeFormat), "->", prettyTime.Format(now))
+	timeSlotes := []struct {
+		name string
+		t    time.Time
+	}{
+		{name: "Just now", t: time.Now()},
+		{name: "Second", t: time.Now().Add(
+			time.Hour*time.Duration(0) +
+				time.Minute*time.Duration(0) +
+				time.Second*time.Duration(1)),
+		},
+		{name: "Second Ago", t: time.Now().Add(
+			time.Hour*time.Duration(0) +
+				time.Minute*time.Duration(0) +
+				time.Second*time.Duration(-1)),
+		},
+		{name: "Minutes", t: time.Now().Add(time.Hour*time.Duration(0) +
+			time.Minute*time.Duration(59) +
+			time.Second*time.Duration(59))},
+		{name: "Tomorrow", t: time.Now().AddDate(0, 0, 1)},
+		{name: "Yesterday", t: time.Now().AddDate(0, 0, -1)},
+		{name: "Week", t: time.Now().AddDate(0, 0, 7)},
+		{name: "Week Ago", t: time.Now().AddDate(0, 0, -7)},
+		{name: "Month", t: time.Now().AddDate(0, 1, 0)},
+		{name: "Month Ago", t: time.Now().AddDate(0, -1, 0)},
+		{name: "Year", t: time.Now().AddDate(2, 0, 0)},
+		{name: "Year Ago", t: time.Now().AddDate(-2, 0, 0)},
+	}
 
-	Time := now.Add(time.Hour*time.Duration(0) + time.Minute*time.Duration(0) + time.Second*5)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.Add(time.Hour*time.Duration(0) + time.Minute*time.Duration(3) + time.Second)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.AddDate(0, 0, 1)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.AddDate(0, 0, -1)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.AddDate(0, 0, 7)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.AddDate(0, 0, -7)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.AddDate(0, 1, 0)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	Time = now.AddDate(0, -1, 0)
-	fmt.Println(Time.Format(timeFormat), "->", prettyTime.Format(Time))
-
-	go func() {
-		for range time.Tick(time.Second * interval) {
-			now.Add(time.Hour*time.Duration(0) + time.Minute*time.Duration(0) + time.Second*interval)
-		}
-	}()
-	time.Sleep(time.Second * interval)
-	for range time.Tick(time.Second * interval) {
-		fmt.Println(time.Now().Format(timeFormat), "->",prettyTime.Format(now))
+	for _, timeSlote := range timeSlotes {
+		fmt.Printf("%s = %v\n", timeSlote.name, prettyTime.Format(timeSlote.t))
 	}
 }
 
-```
-
-#### Output
-
-```
-2018-01-04T17:07:46+05:30 -> just now
-2018-01-04T17:07:51+05:30 -> 5 seconds from now
-2018-01-04T17:10:47+05:30 -> 3 minutes from now
-2018-01-05T17:07:46+05:30 -> tomorrow
-2018-01-03T17:07:46+05:30 -> yesterday
-2018-01-11T17:07:46+05:30 -> 1 week from now
-2017-12-28T17:07:46+05:30 -> 1 week ago
-2018-02-04T17:07:46+05:30 -> 1 month from now
-2017-12-04T17:07:46+05:30 -> 1 month ago
-2018-01-04T17:03:19+05:30 -> 20 seconds ago
-2018-01-04T17:03:29+05:30 -> 30 seconds ago
-2018-01-04T17:03:39+05:30 -> 40 seconds ago
-2018-01-04T17:03:49+05:30 -> 50 seconds ago
-2018-01-04T17:03:59+05:30 -> 1 minute ago
-2018-01-04T17:04:09+05:30 -> 1 minute ago
-2018-01-04T17:04:19+05:30 -> 1 minute ago
-2018-01-04T17:04:29+05:30 -> 2 minute ago
 ```
 
 > Inspired by the `John Resig` Pretty Date plug-in for JQuery (http://ejohn.org/blog/javascript-pretty-date/)

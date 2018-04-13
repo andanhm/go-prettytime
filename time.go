@@ -3,19 +3,12 @@
 package prettytime
 
 import (
-	"errors"
-	"log"
 	"strconv"
 	"time"
 )
 
 // Version library version
 const Version = "v1.0.0"
-
-// Errors This error shouldn't occurs at any const. If occurs the timeLapses condition need to be updated
-var (
-	errFormatNotFound = errors.New("time lapse options not found")
-)
 
 // Unix epoch (or Unix time or POSIX time or Unix timestamp)  1 year (365.24 days)
 const infinity float64 = 31556926 * 1000
@@ -79,10 +72,9 @@ func Format(t time.Time) (timeSince string) {
 	timeElapsed := float64(now - timestamp)
 	for _, formatter := range timeLapses {
 		if timeElapsed < formatter.Threshold {
-			return formatter.Handler(timeElapsed)
+			timeSince = formatter.Handler(timeElapsed)
+			break
 		}
 	}
-	// time timeLapse options not found
-	log.Fatal(t, " : ", errFormatNotFound.Error())
-	return ""
+	return timeSince
 }
