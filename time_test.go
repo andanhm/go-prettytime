@@ -49,7 +49,7 @@ func TestFormat(t *testing.T) {
 }
 
 func ExampleFormat() {
-	timeSlotes := []struct {
+	timeSlots := []struct {
 		name string
 		t    time.Time
 	}{
@@ -77,7 +77,7 @@ func ExampleFormat() {
 		{name: "YearAgo", t: time.Now().AddDate(-2, 0, 0)},
 	}
 
-	for _, timeSlote := range timeSlotes {
-		fmt.Printf("%s = %v\n", timeSlote.name, Format(timeSlote.t))
+	for _, timeSlot := range timeSlots {
+		fmt.Printf("%s = %v\n", timeSlot.name, Format(timeSlot.t))
 	}
 }

@@ -45,3 +45,5 @@ Temporary Items
 .idea/
 .vscode/
 coverage.txt
+*.patch
+_example

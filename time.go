@@ -7,9 +7,6 @@ import (
 	"time"
 )
 
-// Version library version
-const Version = "v1.0.0"
-
 // Unix epoch (or Unix time or POSIX time or Unix timestamp)  1 year (365.24 days)
 const infinity float64 = 31556926 * 1000
 

@@ -1,0 +1,4 @@
+github.com/sqs/goreturns v0.0.0-20180302073349-83e02874ec12 h1:/iJCbsc+t41LGK/YJblzm1o3HwM162j66hkq2L57nis=
+github.com/sqs/goreturns v0.0.0-20180302073349-83e02874ec12/go.mod h1:CKI4AZ4XmGV240rTHfO0hfE83S6/a3/Q1siZJ/vXf7A=
+golang.org/x/tools v0.0.0-20180831211245-7ca132754999 h1:mf2VYfMpSMTlp0I/UXrX13w5LejDx34QeUUHH4TrUA8=
+golang.org/x/tools v0.0.0-20180831211245-7ca132754999/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
