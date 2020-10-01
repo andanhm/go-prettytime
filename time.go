@@ -4,6 +4,7 @@ package prettytime
 
 import (
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -13,12 +14,20 @@ const infinity float64 = 31556926 * 1000
 // Handler function which determines the time difference based on defined time spams
 func handler(timeIntervalThreshold float64, timePeriod, message string) func(float64) string {
 	return func(difference float64) string {
+		var str strings.Builder
 		n := difference / timeIntervalThreshold
 		nStr := strconv.FormatFloat(n, 'f', 0, 64)
+		str.WriteString(nStr)
+		str.WriteString(" ")
+		str.WriteString(timePeriod)
 		if int(n) > 1 {
-			return "" + nStr + " " + timePeriod + "s " + message
+			str.WriteString("s ")
+			str.WriteString( message)
+			return str.String()
 		}
-		return "" + nStr + " " + timePeriod + " " + message
+		str.WriteString(" ")
+		str.WriteString( message)
+		return str.String()
 	}
 }
 

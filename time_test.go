@@ -81,3 +81,14 @@ func ExampleFormat() {
 		fmt.Printf("%s = %v\n", timeSlot.name, Format(timeSlot.t))
 	}
 }
+
+func TestFormatYear(t *testing.T) {
+	now := time.Now()
+
+	oneYearFromNow := now.AddDate(1, 0, 0)
+	gotTimeSince := Format(oneYearFromNow)
+	expected := "1 year from now"
+	if gotTimeSince != expected {
+		t.Errorf("got %v, want %v", expected, gotTimeSince)
+	}
+}
