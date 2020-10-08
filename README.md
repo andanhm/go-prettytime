@@ -5,9 +5,16 @@
 [![GoDoc](https://camo.githubusercontent.com/3de3bba30c9355c0d919804e7b31e6b504af74e2/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f6e617468616e792f6c6f6f7065723f7374617475732e737667)](https://godoc.org/github.com/andanhm/go-prettytime)
 [![CodeCov](https://codecov.io/gh/icza/minquery/branch/master/graph/badge.svg)](https://codecov.io/gh/andanhm/go-prettytime)
 
-Format Go date time in a *`pretty`* way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
+Format Go date time in a _`pretty`_ way. ex : just now, a minute ago, 2 hours ago , 3 minutes ago
 
 Inspired by the `John Resig` Pretty Date [plug-in] for JQuery
+
+```
+prettytime.Format("2008-01-28T20:24:17Z") // => "2 hours ago"
+prettytime.Format("2008-01-27T22:24:17Z") // => "Yesterday"
+prettytime.Format("2008-01-26T22:24:17Z") // => "2 days ago"
+prettytime.Format("2008-01-14T22:24:17Z") // => "2 weeks ago"
+```
 
 ## Install
 
@@ -21,53 +28,29 @@ go get github.com/andanhm/go-prettytime
 package main
 
 import (
-    "fmt"
-    "time"
+	"log"
+	"time"
 
-    prettyTime "github.com/andanhm/go-prettytime"
+	"github.com/andanhm/go-prettytime"
+)
+
+const (
+	layout = "2006-01-02T15:04:05Z"
 )
 
 func main() {
-    timeSlots := []struct {
-        name string
-        t    time.Time
-    }{
-		{name: "Just now", t: time.Now()},
-		{name: "Second", t: time.Now().Add(
-			time.Hour*time.Duration(0) +
-				time.Minute*time.Duration(0) +
-				time.Second*time.Duration(1)),
-		},
-		{name: "Second Ago", t: time.Now().Add(
-			time.Hour*time.Duration(0) +
-				time.Minute*time.Duration(0) +
-				time.Second*time.Duration(-1)),
-		},
-		{name: "Minutes", t: time.Now().Add(time.Hour*time.Duration(0) +
-			time.Minute*time.Duration(59) +
-			time.Second*time.Duration(59))},
-		{name: "Tomorrow", t: time.Now().AddDate(0, 0, 1)},
-		{name: "Yesterday", t: time.Now().AddDate(0, 0, -1)},
-		{name: "Week", t: time.Now().AddDate(0, 0, 7)},
-		{name: "Week Ago", t: time.Now().AddDate(0, 0, -7)},
-		{name: "Month", t: time.Now().AddDate(0, 1, 0)},
-		{name: "Month Ago", t: time.Now().AddDate(0, -1, 0)},
-		{name: "Year", t: time.Now().AddDate(2, 0, 0)},
-		{name: "Year Ago", t: time.Now().AddDate(-2, 0, 0)},
+	t, err := time.Parse(layout, "2008-01-28T20:24:17Z")
+	if err != nil {
+		log.Fatal(err)
 	}
-
-	for _, timeSlot := range timeSlots {
-        fmt.Printf("%s = %v\n", timeSlot.name, prettyTime.Format(timeSlot.t))
-	}
+	log.Printf("%s \n", prettytime.Format(t))
 }
-
+// Output: 13 years ago
 ```
 
 ### Contributions
 
 Feel free to fork and add features, fix bugs and your pull request is more than welcome ❤
 
-[dep]: <https://github.com/golang/dep>
-[gvt]: <https://github.com/FiloSottile/gvt>
-[go-prettytime]: <https://godoc.org/github.com/andanhm/go-prettytime>
-[plug-in]: <http://ejohn.org/blog/javascript-pretty-date/>
+[go-prettytime]: https://pkg.go.dev/github.com/andanhm/go-prettytime
+[plug-in]: http://ejohn.org/blog/javascript-pretty-date/

@@ -22,11 +22,11 @@ func handler(timeIntervalThreshold float64, timePeriod, message string) func(flo
 		str.WriteString(timePeriod)
 		if int(n) > 1 {
 			str.WriteString("s ")
-			str.WriteString( message)
+			str.WriteString(message)
 			return str.String()
 		}
 		str.WriteString(" ")
-		str.WriteString( message)
+		str.WriteString(message)
 		return str.String()
 	}
 }
