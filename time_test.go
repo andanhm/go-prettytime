@@ -1,7 +1,6 @@
 package prettytime_test
 
 import (
-	"fmt"
 	"testing"
 	"time"
 
@@ -43,10 +42,10 @@ func TestFormat(t *testing.T) {
 		{name: "Year", t: time.Now().AddDate(50, 0, 0), want: "50 years from now"},
 		{name: "YearAgo", t: time.Now().AddDate(-2, 0, 0), want: "2 years ago"},
 	}
-
+	pretty := NewPrettyTimeFormatter("en-EN")
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotTimeSince := Format(tt.t, "en-EN"); gotTimeSince != tt.want {
+			if gotTimeSince := pretty.Format(tt.t); gotTimeSince != tt.want {
 				t.Errorf("Format() = %v, want %v", gotTimeSince, tt.want)
 			}
 		})
@@ -89,54 +88,22 @@ func TestFormatGerman(t *testing.T) {
 		{name: "YearAgo", t: time.Now().AddDate(-2, 0, 0), want: "2 Jahre zuvor"},
 	}
 
+	pretty := NewPrettyTimeFormatter("de-DE")
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotTimeSince := Format(tt.t, "de-DE"); gotTimeSince != tt.want {
+			if gotTimeSince := pretty.Format(tt.t); gotTimeSince != tt.want {
 				t.Errorf("Format() = %v, want %v", gotTimeSince, tt.want)
 			}
 		})
 	}
 }
 
-func ExampleFormat() {
-	timeSlots := []struct {
-		name string
-		t    time.Time
-	}{
-		{name: "Just now", t: time.Now()},
-		{name: "Second", t: time.Now().Add(
-			time.Hour*time.Duration(0) +
-				time.Minute*time.Duration(0) +
-				time.Second*time.Duration(1)),
-		},
-		{name: "SecondAgo", t: time.Now().Add(
-			time.Hour*time.Duration(0) +
-				time.Minute*time.Duration(0) +
-				time.Second*time.Duration(-1)),
-		},
-		{name: "Minutes", t: time.Now().Add(time.Hour*time.Duration(0) +
-			time.Minute*time.Duration(59) +
-			time.Second*time.Duration(59))},
-		{name: "Tomorrow", t: time.Now().AddDate(0, 0, 1)},
-		{name: "Yesterday", t: time.Now().AddDate(0, 0, -1)},
-		{name: "Week", t: time.Now().AddDate(0, 0, 7)},
-		{name: "WeekAgo", t: time.Now().AddDate(0, 0, -7)},
-		{name: "Month", t: time.Now().AddDate(0, 1, 0)},
-		{name: "MonthAgo", t: time.Now().AddDate(0, -1, 0)},
-		{name: "Year", t: time.Now().AddDate(2, 0, 0)},
-		{name: "YearAgo", t: time.Now().AddDate(-2, 0, 0)},
-	}
-
-	for _, timeSlot := range timeSlots {
-		fmt.Printf("%s = %v\n", timeSlot.name, Format(timeSlot.t, "en-EN"))
-	}
-}
-
 func TestFormatYear(t *testing.T) {
 	now := time.Now()
 
+	pretty := NewPrettyTimeFormatter("en-EN")
 	oneYearFromNow := now.AddDate(1, 0, 0)
-	gotTimeSince := Format(oneYearFromNow, "en-EN")
+	gotTimeSince := pretty.Format(oneYearFromNow)
 	expected := "1 year from now"
 	if gotTimeSince != expected {
 		t.Errorf("got %v, want %v", expected, gotTimeSince)

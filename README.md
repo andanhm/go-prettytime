@@ -31,7 +31,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/andanhm/go-prettytime"
+    "github.com/andanhm/go-prettytime"
 )
 
 const (
@@ -43,7 +43,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("%s \n", prettytime.Format(t))
+    pretty := prettytime.NewPrettyTimeFormatter("en-EN")
+	log.Printf("%s \n", pretty.Format(t))
 }
 // Output: 13 years ago
 ```
@@ -52,19 +53,23 @@ func main() {
 
 `go-prettytime` uses [go-i18n](https://github.com/nicksnyder/go-i18n) to provide i18n capabilities.
 
+#### Supported language
+
+Currently `go-prettytime` supports following languages:
+
+- English 🇬🇧 (default)
+- German 🇩🇪
+
 #### Translating a new language
 Create an empty message file for the language that you want to add (e.g. translate.es.toml).
 
 Run `goi18n merge en.toml translate.es.toml` to populate translate.es.toml with the messages to be translated.
 
-After `translate.es.toml` has been translated, rename it to `es.toml`
+After `translate.es.toml` has been translated, rename it to `active.es.toml`
 
-Load `es.toml` into the `time.go` file via
+Put the file into the `i18n` folder.
 
-```go
-bundle.MustLoadMessageFile("es.toml")
-```
-
+Create a PR 🌟.
 
 ### Contributions
 

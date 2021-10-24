@@ -1,6 +1,6 @@
 module github.com/andanhm/go-prettytime
 
-go 1.15
+go 1.16
 
 require (
 	github.com/BurntSushi/toml v0.4.1 // indirect

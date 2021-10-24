@@ -3,14 +3,37 @@
 package prettytime
 
 import (
+	"embed"
+	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
+
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
 )
+
+//go:embed i18n
+var i18nDir embed.FS
+
+// PrettyTime struct
+type PrettyTime struct {
+	// localizer provides Localize and MustLocalize methods that return localized messages.
+	localizer *i18n.Localizer
+	// timeLapse condition struct
+	timeLapses []timeLapse
+}
+
+// TimeLapse condition struct
+type timeLapse struct {
+	// Time stamp threshold to handle the time lap condition
+	Threshold float64
+	// Handler function which determines the time lapse based on the condition
+	Handler func(float64) string
+}
 
 const (
 	// Unix epoch (or Unix time or POSIX time or Unix timestamp)  1 year (365.24 days)
@@ -55,14 +78,6 @@ func handler(timeIntervalThreshold float64, timePeriodMessageID, sinceMessageID 
 	}
 }
 
-// timeLapse condition struct
-type timeLapse struct {
-	// Time stamp threshold to handle the time lap condition
-	Threshold float64
-	// Handler function which determines the time lapse based on the condition
-	Handler func(float64) string
-}
-
 func initTimeLapse(localizer *i18n.Localizer) []timeLapse {
 	return []timeLapse{
 		{Threshold: -31535999, Handler: handler(-31536000, yearTimePeriodMessageID, fromSinceMessageID, localizer)},
@@ -97,15 +112,29 @@ func initTimeLapse(localizer *i18n.Localizer) []timeLapse {
 	}
 }
 
-//Format returns a string describing how long it has been since
-//the time argument passed int
-func Format(t time.Time, lang string) (timeSince string) {
+// NewPrettyTimeFormatter function to initialise the language bundles
+func NewPrettyTimeFormatter(lang string) *PrettyTime {
 	bundle := i18n.NewBundle(language.English)
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
-	bundle.MustLoadMessageFile("de.toml")
+	langFiles, _ := i18nDir.ReadDir("i18n")
+	for _, langFile := range langFiles {
+		path := fmt.Sprintf("i18n/%s", langFile.Name())
+		file, err := i18nDir.ReadFile(path)
+		if err != nil {
+			log.Fatal("can not read language files")
+		}
+		bundle.MustParseMessageFileBytes(file, path)
+	}
 	localizer := i18n.NewLocalizer(bundle, lang)
+	return &PrettyTime{
+		localizer:  localizer,
+		timeLapses: initTimeLapse(localizer),
+	}
+}
 
-	timeLapses := initTimeLapse(localizer)
+//Format returns a string describing how long it has been since
+//the time argument passed int
+func (p *PrettyTime) Format(t time.Time) (timeSince string) {
 	timestamp := t.Unix()
 	now := time.Now().Unix()
 
@@ -114,7 +143,7 @@ func Format(t time.Time, lang string) (timeSince string) {
 	}
 
 	timeElapsed := float64(now - timestamp)
-	for _, formatter := range timeLapses {
+	for _, formatter := range p.timeLapses {
 		if timeElapsed < formatter.Threshold {
 			timeSince = formatter.Handler(timeElapsed)
 			break
