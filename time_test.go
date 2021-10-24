@@ -26,6 +26,11 @@ func TestFormat(t *testing.T) {
 				time.Minute*time.Duration(0) +
 				time.Second*time.Duration(-1)),
 			want: "1 second ago"},
+		{name: "SecondsAgo", t: time.Now().Add(
+			time.Hour*time.Duration(0) +
+				time.Minute*time.Duration(0) +
+				time.Second*time.Duration(-2)),
+			want: "2 seconds ago"},
 		{name: "Minutes", t: time.Now().Add(time.Hour*time.Duration(0) +
 			time.Minute*time.Duration(59) +
 			time.Second*time.Duration(59)), want: "60 minutes from now"},
@@ -41,7 +46,52 @@ func TestFormat(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotTimeSince := Format(tt.t); gotTimeSince != tt.want {
+			if gotTimeSince := Format(tt.t, "en-EN"); gotTimeSince != tt.want {
+				t.Errorf("Format() = %v, want %v", gotTimeSince, tt.want)
+			}
+		})
+	}
+}
+
+func TestFormatGerman(t *testing.T) {
+	tests := []struct {
+		name string
+		t    time.Time
+		want string
+	}{
+		{name: "Just now", t: time.Now(), want: "jetzt"},
+		{name: "Second", t: time.Now().Add(
+			time.Hour*time.Duration(0) +
+				time.Minute*time.Duration(0) +
+				time.Second*time.Duration(1)),
+			want: "1 Sekunde ab jetzt",
+		},
+		{name: "SecondAgo", t: time.Now().Add(
+			time.Hour*time.Duration(0) +
+				time.Minute*time.Duration(0) +
+				time.Second*time.Duration(-1)),
+			want: "1 Sekunde zuvor"},
+		{name: "SecondsAgo", t: time.Now().Add(
+			time.Hour*time.Duration(0) +
+				time.Minute*time.Duration(0) +
+				time.Second*time.Duration(-2)),
+			want: "2 Sekunden zuvor"},
+		{name: "Minutes", t: time.Now().Add(time.Hour*time.Duration(0) +
+			time.Minute*time.Duration(59) +
+			time.Second*time.Duration(59)), want: "60 Minuten ab jetzt"},
+		{name: "Tomorrow", t: time.Now().AddDate(0, 0, 1), want: "morgen"},
+		{name: "Yesterday", t: time.Now().AddDate(0, 0, -1), want: "gestern"},
+		{name: "Week", t: time.Now().AddDate(0, 0, 7), want: "1 Woche ab jetzt"},
+		{name: "WeekAgo", t: time.Now().AddDate(0, 0, -7), want: "1 Woche zuvor"},
+		{name: "Month", t: time.Now().AddDate(0, 1, 0), want: "1 Monat ab jetzt"},
+		{name: "MonthAgo", t: time.Now().AddDate(0, -1, 0), want: "1 Monat zuvor"},
+		{name: "Year", t: time.Now().AddDate(50, 0, 0), want: "50 Jahre ab jetzt"},
+		{name: "YearAgo", t: time.Now().AddDate(-2, 0, 0), want: "2 Jahre zuvor"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotTimeSince := Format(tt.t, "de-DE"); gotTimeSince != tt.want {
 				t.Errorf("Format() = %v, want %v", gotTimeSince, tt.want)
 			}
 		})
@@ -78,7 +128,7 @@ func ExampleFormat() {
 	}
 
 	for _, timeSlot := range timeSlots {
-		fmt.Printf("%s = %v\n", timeSlot.name, Format(timeSlot.t))
+		fmt.Printf("%s = %v\n", timeSlot.name, Format(timeSlot.t, "en-EN"))
 	}
 }
 
@@ -86,7 +136,7 @@ func TestFormatYear(t *testing.T) {
 	now := time.Now()
 
 	oneYearFromNow := now.AddDate(1, 0, 0)
-	gotTimeSince := Format(oneYearFromNow)
+	gotTimeSince := Format(oneYearFromNow, "en-EN")
 	expected := "1 year from now"
 	if gotTimeSince != expected {
 		t.Errorf("got %v, want %v", expected, gotTimeSince)

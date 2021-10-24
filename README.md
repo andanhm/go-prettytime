@@ -48,6 +48,24 @@ func main() {
 // Output: 13 years ago
 ```
 
+### i18n support
+
+`go-prettytime` uses [go-i18n](https://github.com/nicksnyder/go-i18n) to provide i18n capabilities.
+
+#### Translating a new language
+Create an empty message file for the language that you want to add (e.g. translate.es.toml).
+
+Run `goi18n merge en.toml translate.es.toml` to populate translate.es.toml with the messages to be translated.
+
+After `translate.es.toml` has been translated, rename it to `es.toml`
+
+Load `es.toml` into the `time.go` file via
+
+```go
+bundle.MustLoadMessageFile("es.toml")
+```
+
+
 ### Contributions
 
 Feel free to fork and add features, fix bugs and your pull request is more than welcome ❤

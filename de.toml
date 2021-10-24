@@ -1,0 +1,54 @@
+[ago]
+hash = "sha1-b6a599c3eb1daa69bd781595238cbbc0c9ed4069"
+other = "{{.Time}} zuvor"
+
+[day]
+hash = "sha1-f7a3548ed9d14f00efe21a45f8a854a764f6ade4"
+one = "{{.Value}} Tag"
+other = "{{.Value}} Tage"
+
+[from_now]
+hash = "sha1-051145077041f577d403934dfa540a3189f71151"
+other = "{{.Time}} ab jetzt"
+
+[hour]
+hash = "sha1-54064c02cf8a95c3ca1f3ca35208d674853f3c3a"
+one = "{{.Value}} Stunde"
+other = "{{.Value}} Stunden"
+
+[just_now]
+hash = "sha1-a7f8e7cc0d43d21e5d1a4d0a3b0d5ff66a5da1ed"
+other = "jetzt"
+
+[minute]
+hash = "sha1-be29e8181d9f78147584f9efc0c3954b4aea75da"
+one = "{{.Value}} Minute"
+other = "{{.Value}} Minuten"
+
+[month]
+hash = "sha1-e47bdc2924dcd8e6514078216a1b883cbb349741"
+one = "{{.Value}} Monat"
+other = "{{.Value}} Monate"
+
+[second]
+hash = "sha1-6881df30e2cac6f169517dab7decfeabebc261b5"
+one = "{{.Value}} Sekunde"
+other = "{{.Value}} Sekunden"
+
+[tomorrow]
+hash = "sha1-2dac81d65dd44b5d6ac0dd7afdf25b1527f6f0f7"
+other = "morgen"
+
+[week]
+hash = "sha1-8946a2b8ca655d1d16832ec7f47d19db29e10508"
+one = "{{.Value}} Woche"
+other = "{{.Value}} Wochen"
+
+[year]
+hash = "sha1-1538d640ffc9b9e2791050073cf8b60009119b94"
+one = "{{.Value}} Jahr"
+other = "{{.Value}} Jahre"
+
+[yesterday]
+hash = "sha1-1aa96b8f44f6515a65f3c132ce1b8842a9bd9e87"
+other = "gestern"
