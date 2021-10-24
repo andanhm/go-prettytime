@@ -1,0 +1,33 @@
+ago = "{{.Time}} ago"
+from_now = "{{.Time}} from now"
+just_now = "just now"
+tomorrow = "tomorrow"
+yesterday = "yesterday"
+
+[day]
+one = "{{.Value}} day"
+other = "{{.Value}} days"
+
+[hour]
+one = "{{.Value}} hour"
+other = "{{.Value}} hours"
+
+[minute]
+one = "{{.Value}} minute"
+other = "{{.Value}} minutes"
+
+[month]
+one = "{{.Value}} month"
+other = "{{.Value}} months"
+
+[second]
+one = "{{.Value}} second"
+other = "{{.Value}} seconds"
+
+[week]
+one = "{{.Value}} week"
+other = "{{.Value}} weeks"
+
+[year]
+one = "{{.Value}} year"
+other = "{{.Value}} years"
