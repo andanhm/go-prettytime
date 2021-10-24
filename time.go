@@ -11,7 +11,7 @@ import (
 // Unix epoch (or Unix time or POSIX time or Unix timestamp)  1 year (365.24 days)
 const infinity float64 = 31556926 * 1000
 
-// Handler function which determines the time difference based on defined time spams
+// Handler function which determines the time difference based on defined time spans
 func handler(timeIntervalThreshold float64, timePeriod, message string) func(float64) string {
 	return func(difference float64) string {
 		var str strings.Builder
